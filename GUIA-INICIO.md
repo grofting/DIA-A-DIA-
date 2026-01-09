@@ -135,14 +135,15 @@ function DiaryEntry() {
   const handleSave = () => {
     if (entry.trim()) {
       const newEntry = {
-        id: Date.now(),
+        id: crypto.randomUUID(), // Genera un ID único seguro
         content: entry,
         date: new Date().toISOString(),
       };
-      setEntries([newEntry, ...entries]);
+      const updatedEntries = [newEntry, ...entries];
+      setEntries(updatedEntries);
       setEntry('');
-      // Guardar en localStorage
-      localStorage.setItem('diary-entries', JSON.stringify([newEntry, ...entries]));
+      // Guardar en localStorage con el estado actualizado
+      localStorage.setItem('diary-entries', JSON.stringify(updatedEntries));
     }
   };
 
@@ -395,7 +396,7 @@ npm run deploy
 
 ## 💡 Tips de Desarrollo
 
-1. **Commitea frecuentemente**: Haz commits pequeños y descriptivos
+1. **Comitea frecuentemente**: Haz commits pequeños y descriptivos
 2. **Comenta tu código**: Pero solo cuando sea necesario
 3. **Usa nombres descriptivos**: Variables y funciones claras
 4. **Mantén componentes pequeños**: Cada componente una responsabilidad
