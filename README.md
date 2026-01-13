@@ -13,6 +13,16 @@ A fun and interactive Sudoku game built with HTML, CSS, and JavaScript.
 7. Use "Check Solution" to verify your answers
 8. Use "Get Hint" if you need help
 
+## Saving Your Progress
+
+**Your game is automatically saved** as you play! The game saves your progress every time you enter or delete a number.
+
+- **Manual Save**: Click the "Save Game" button to manually save your current game
+- **Load Game**: Click the "Load Game" button to restore your last saved game
+- **Auto-Resume**: When you open the game again, it will automatically ask if you want to continue your saved game
+
+**Note**: Your saved game is stored in your browser's local storage. Clearing your browser data will delete your saved game.
+
 ## Game Rules
 
 - Each row must contain the digits 1-9 without repetition
@@ -25,6 +35,8 @@ A fun and interactive Sudoku game built with HTML, CSS, and JavaScript.
 - Interactive game board with visual feedback
 - Hint system to help when you're stuck
 - Solution checking
+- **Auto-save and manual save/load functionality**
+- **Game progress persists between sessions**
 - Responsive design for mobile and desktop
 - Beautiful gradient background and smooth animations
 
@@ -33,6 +45,7 @@ A fun and interactive Sudoku game built with HTML, CSS, and JavaScript.
 - HTML5
 - CSS3 (with animations and responsive design)
 - Vanilla JavaScript (no frameworks or libraries)
+- LocalStorage API for saving game state
 
 ## Playing the Game
 

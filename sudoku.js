@@ -9,11 +9,27 @@ class SudokuGame {
 
     init() {
         this.setupEventListeners();
-        this.newGame();
+        this.checkForSavedGame();
+    }
+
+    checkForSavedGame() {
+        const savedState = localStorage.getItem('sudokuGameState');
+        if (savedState) {
+            const load = confirm('A saved game was found. Would you like to continue from where you left off?');
+            if (load) {
+                this.loadGame();
+            } else {
+                this.newGame();
+            }
+        } else {
+            this.newGame();
+        }
     }
 
     setupEventListeners() {
         document.getElementById('newGame').addEventListener('click', () => this.newGame());
+        document.getElementById('saveGame').addEventListener('click', () => this.saveGame());
+        document.getElementById('loadGame').addEventListener('click', () => this.loadGame());
         document.getElementById('checkSolution').addEventListener('click', () => this.checkSolution());
         document.getElementById('hint').addEventListener('click', () => this.giveHint());
         document.getElementById('difficulty').addEventListener('change', (e) => {
@@ -149,9 +165,11 @@ class SudokuGame {
             this.board[row][col] = num;
             this.updateCell(row, col, num);
             this.validateCell(row, col);
+            this.autoSave();
         } else if (e.key === 'Backspace' || e.key === 'Delete') {
             this.board[row][col] = 0;
             this.updateCell(row, col, 0);
+            this.autoSave();
         }
     }
 
@@ -235,6 +253,63 @@ class SudokuGame {
         }
         
         this.showMessage(`Hint: Cell at row ${row + 1}, column ${col + 1} is ${correctValue}`, 'info');
+    }
+
+    saveGame() {
+        const gameState = {
+            board: this.board,
+            solution: this.solution,
+            difficulty: this.difficulty,
+            timestamp: new Date().toISOString()
+        };
+        
+        try {
+            localStorage.setItem('sudokuGameState', JSON.stringify(gameState));
+            this.showMessage('Game saved successfully!', 'success');
+        } catch (error) {
+            this.showMessage('Failed to save game. Please try again.', 'error');
+        }
+    }
+
+    loadGame() {
+        try {
+            const savedState = localStorage.getItem('sudokuGameState');
+            
+            if (!savedState) {
+                this.showMessage('No saved game found.', 'error');
+                return;
+            }
+            
+            const gameState = JSON.parse(savedState);
+            this.board = gameState.board;
+            this.solution = gameState.solution;
+            this.difficulty = gameState.difficulty;
+            
+            // Update difficulty selector
+            document.getElementById('difficulty').value = this.difficulty;
+            
+            this.renderBoard();
+            this.showMessage('Game loaded successfully!', 'success');
+        } catch (error) {
+            this.showMessage('Failed to load game. The saved data may be corrupted.', 'error');
+        }
+    }
+
+    autoSave() {
+        // Silently save the game state to localStorage
+        const gameState = {
+            board: this.board,
+            solution: this.solution,
+            difficulty: this.difficulty,
+            timestamp: new Date().toISOString()
+        };
+        
+        try {
+            localStorage.setItem('sudokuGameState', JSON.stringify(gameState));
+        } catch (error) {
+            // Silently fail - don't show error message for auto-save
+            console.error('Auto-save failed:', error);
+        }
     }
 
     showMessage(text, type) {

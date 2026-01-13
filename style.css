@@ -70,6 +70,17 @@ h1 {
     box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
 }
 
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
 #difficulty {
     padding: 10px 15px;
     border: 2px solid #667eea;
