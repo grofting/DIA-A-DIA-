@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku Game</h1>
+        <div class="controls">
+            <button id="newGame" class="btn btn-primary">New Game</button>
+            <button id="checkSolution" class="btn btn-secondary">Check Solution</button>
+            <button id="hint" class="btn btn-secondary">Get Hint</button>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+        <div id="message" class="message"></div>
+        <div id="sudoku-board" class="sudoku-board"></div>
+        <div class="instructions">
+            <h3>How to Play:</h3>
+            <ul>
+                <li>Click on a cell to select it</li>
+                <li>Type a number (1-9) to fill the cell</li>
+                <li>Press Delete or Backspace to clear a cell</li>
+                <li>Each row, column, and 3x3 box must contain digits 1-9 without repetition</li>
+            </ul>
+        </div>
+    </div>
+    <script src="sudoku.js"></script>
+</body>
+</html>
