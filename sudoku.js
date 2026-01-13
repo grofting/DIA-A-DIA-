@@ -255,13 +255,17 @@ class SudokuGame {
         this.showMessage(`Hint: Cell at row ${row + 1}, column ${col + 1} is ${correctValue}`, 'info');
     }
 
-    saveGame() {
-        const gameState = {
+    createGameState() {
+        return {
             board: this.board,
             solution: this.solution,
             difficulty: this.difficulty,
             timestamp: new Date().toISOString()
         };
+    }
+
+    saveGame() {
+        const gameState = this.createGameState();
         
         try {
             localStorage.setItem('sudokuGameState', JSON.stringify(gameState));
@@ -281,6 +285,29 @@ class SudokuGame {
             }
             
             const gameState = JSON.parse(savedState);
+            
+            // Validate loaded game state
+            if (!gameState.board || !gameState.solution || !gameState.difficulty) {
+                this.showMessage('Saved game data is incomplete.', 'error');
+                return;
+            }
+            
+            // Validate board and solution are 9x9 arrays
+            if (!Array.isArray(gameState.board) || gameState.board.length !== 9 ||
+                !Array.isArray(gameState.solution) || gameState.solution.length !== 9) {
+                this.showMessage('Saved game data is corrupted.', 'error');
+                return;
+            }
+            
+            // Validate each row has 9 cells
+            for (let i = 0; i < 9; i++) {
+                if (!Array.isArray(gameState.board[i]) || gameState.board[i].length !== 9 ||
+                    !Array.isArray(gameState.solution[i]) || gameState.solution[i].length !== 9) {
+                    this.showMessage('Saved game data is corrupted.', 'error');
+                    return;
+                }
+            }
+            
             this.board = gameState.board;
             this.solution = gameState.solution;
             this.difficulty = gameState.difficulty;
@@ -297,12 +324,7 @@ class SudokuGame {
 
     autoSave() {
         // Silently save the game state to localStorage
-        const gameState = {
-            board: this.board,
-            solution: this.solution,
-            difficulty: this.difficulty,
-            timestamp: new Date().toISOString()
-        };
+        const gameState = this.createGameState();
         
         try {
             localStorage.setItem('sudokuGameState', JSON.stringify(gameState));
