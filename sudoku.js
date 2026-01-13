@@ -169,6 +169,7 @@ class SudokuGame {
         if (value === 0) return;
         
         const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+        if (!cell) return;
         
         // Temporarily set to 0 to check validity (to avoid checking against itself)
         const temp = this.board[row][col];
@@ -227,9 +228,11 @@ class SudokuGame {
         
         this.board[row][col] = correctValue;
         const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-        cell.textContent = correctValue;
-        cell.classList.add('hint');
-        cell.classList.remove('selected', 'error');
+        if (cell) {
+            cell.textContent = correctValue;
+            cell.classList.add('hint');
+            cell.classList.remove('selected', 'error');
+        }
         
         this.showMessage(`Hint: Cell at row ${row + 1}, column ${col + 1} is ${correctValue}`, 'info');
     }
