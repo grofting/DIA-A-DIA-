@@ -170,18 +170,14 @@ class SudokuGame {
         
         const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
         
-        if (!this.isValidMove(this.board, row, col, value)) {
-            // Temporarily set to 0 to check validity
-            const temp = this.board[row][col];
-            this.board[row][col] = 0;
-            const isValid = this.isValidMove(this.board, row, col, temp);
-            this.board[row][col] = temp;
-            
-            if (!isValid) {
-                cell.classList.add('error');
-            } else {
-                cell.classList.remove('error');
-            }
+        // Temporarily set to 0 to check validity (to avoid checking against itself)
+        const temp = this.board[row][col];
+        this.board[row][col] = 0;
+        const isValid = this.isValidMove(this.board, row, col, temp);
+        this.board[row][col] = temp;
+        
+        if (!isValid) {
+            cell.classList.add('error');
         } else {
             cell.classList.remove('error');
         }
