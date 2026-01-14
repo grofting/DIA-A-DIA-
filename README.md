@@ -5,6 +5,12 @@ This repository contains two applications:
 1. **Comparador de Seguros Empresariales** - Professional insurance comparison tool with AI-powered PDF extraction
 2. **Sudoku Game** - A fun and interactive Sudoku game
 
+## 🚀 Quick Start
+
+Open `inicio.html` in your browser to access both applications, or navigate directly to:
+- **Insurance Comparator**: `comparador-seguros.html`
+- **Sudoku Game**: `index.html`
+
 ---
 
 ## 🏢 Comparador de Seguros Empresariales
