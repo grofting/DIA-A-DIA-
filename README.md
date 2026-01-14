@@ -1,4 +1,97 @@
-# DIA-A-DIA- Sudoku Game
+# DIA-A-DIA- Project
+
+This repository contains two applications:
+
+1. **Comparador de Seguros Empresariales** - Professional insurance comparison tool with AI-powered PDF extraction
+2. **Sudoku Game** - A fun and interactive Sudoku game
+
+---
+
+## 🏢 Comparador de Seguros Empresariales
+
+Aplicación web profesional para comparar cotizaciones de seguros empresariales utilizando inteligencia artificial (Google Gemini API).
+
+### Características Principales
+
+- **Extracción Inteligente con IA**: Procesa múltiples PDFs de cotizaciones usando la API de Gemini
+- **Mapeo Semántico**: Consolida automáticamente coberturas similares (ej: "Huracán", "Ciclón" → "Fenómenos Hidrometeorológicos")
+- **Cuadro Comparativo Profesional**: Organiza la información en secciones claras y estructuradas
+- **Exportación a Excel**: Descarga los resultados en formato Excel profesional
+- **Manejo Inteligente de Datos**: 
+  - Identifica coberturas no incluidas ("No cubierto")
+  - Extrae deducibles complejos con sus condiciones completas
+  - Detecta y agrega coberturas adicionales no estándar
+
+### Estructura del Cuadro Comparativo
+
+El sistema organiza la información en las siguientes secciones:
+
+1. **Edificio y Contenidos**
+   - Incendio, Rayo y Explosión
+   - Extensión de Cubierta
+
+2. **Riesgos de la Naturaleza**
+   - Terremoto y Erupción Volcánica
+   - Fenómenos Hidrometeorológicos
+
+3. **Riesgos Técnicos**
+   - Rotura de Maquinaria
+   - Equipo Electrónico
+
+4. **Responsabilidad Civil**
+   - RC General
+   - RC Arrendatario
+   - RC Productos
+
+5. **Costos**
+   - Prima Neta
+   - Gastos de Expedición
+   - IVA
+   - Prima Total
+
+6. **Coberturas Adicionales** (detectadas automáticamente)
+
+### Cómo Usar
+
+1. **Configurar API Key**:
+   - Visita [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - Genera una API Key de Gemini
+   - Ingresa la clave en la aplicación
+
+2. **Cargar PDFs**:
+   - Arrastra o selecciona múltiples archivos PDF de cotizaciones
+   - La aplicación soporta archivos de diferentes aseguradoras (GNP, Inbursa, Afirme, Tokio Marine, etc.)
+
+3. **Procesar**:
+   - Haz clic en "Procesar Cotizaciones"
+   - La IA extraerá y consolidará la información automáticamente
+
+4. **Exportar**:
+   - Revisa el cuadro comparativo generado
+   - Descarga el resultado en formato Excel
+
+### Requisitos
+
+- Navegador web moderno (Chrome, Firefox, Safari, Edge)
+- Conexión a Internet (para API de Gemini)
+- API Key de Google Gemini (gratuita en AI Studio)
+
+### Archivos
+
+- `comparador-seguros.html` - Interfaz principal
+- `comparador.css` - Estilos profesionales
+- `comparador.js` - Lógica de la aplicación y integración con Gemini API
+
+### Tecnologías Utilizadas
+
+- HTML5, CSS3, JavaScript (Vanilla)
+- Google Gemini API (para extracción inteligente de PDFs)
+- SheetJS (XLSX) para exportación a Excel
+- LocalStorage para guardar configuración
+
+---
+
+## 🎮 Sudoku Game
 
 A fun and interactive Sudoku game built with HTML, CSS, and JavaScript.
 
