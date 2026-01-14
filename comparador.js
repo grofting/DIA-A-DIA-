@@ -420,7 +420,11 @@ IMPORTANTE:
 
     addSectionHeader(tbody, title) {
         const row = document.createElement('tr');
-        row.innerHTML = `<td colspan="${this.extractedData.length + 1}" class="section-header">${title}</td>`;
+        const cell = document.createElement('td');
+        cell.colSpan = this.extractedData.length + 1;
+        cell.className = 'section-header';
+        cell.textContent = title;
+        row.appendChild(cell);
         tbody.appendChild(row);
     }
 
@@ -428,16 +432,22 @@ IMPORTANTE:
         const row = document.createElement('tr');
         if (isCost) row.className = 'cost-row';
 
-        let html = `<td class="concept-cell">${label}</td>`;
+        const conceptCell = document.createElement('td');
+        conceptCell.className = 'concept-cell';
+        conceptCell.textContent = label;
+        row.appendChild(conceptCell);
         
         this.extractedData.forEach(data => {
             const value = this.getNestedValue(data, path);
             const displayValue = value || 'No cubierto';
             const cellClass = (!value || value === 'No cubierto') ? 'no-cubierto' : '';
-            html += `<td class="${cellClass}">${displayValue}</td>`;
+            
+            const cell = document.createElement('td');
+            if (cellClass) cell.className = cellClass;
+            cell.textContent = displayValue;
+            row.appendChild(cell);
         });
 
-        row.innerHTML = html;
         tbody.appendChild(row);
     }
 
@@ -464,7 +474,11 @@ IMPORTANTE:
             this.addSectionHeader(tbody, 'COBERTURAS ADICIONALES');
             allAdditionalCoverages.forEach(coverage => {
                 const row = document.createElement('tr');
-                let html = `<td class="concept-cell">${coverage}</td>`;
+                
+                const conceptCell = document.createElement('td');
+                conceptCell.className = 'concept-cell';
+                conceptCell.textContent = coverage;
+                row.appendChild(conceptCell);
                 
                 this.extractedData.forEach(data => {
                     let hasIt = false;
@@ -476,10 +490,13 @@ IMPORTANTE:
                     }
                     const cellClass = !hasIt ? 'no-cubierto' : '';
                     const displayValue = hasIt ? 'Incluida' : 'No cubierto';
-                    html += `<td class="${cellClass}">${displayValue}</td>`;
+                    
+                    const cell = document.createElement('td');
+                    if (cellClass) cell.className = cellClass;
+                    cell.textContent = displayValue;
+                    row.appendChild(cell);
                 });
 
-                row.innerHTML = html;
                 tbody.appendChild(row);
             });
         }

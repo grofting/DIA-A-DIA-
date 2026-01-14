@@ -76,6 +76,17 @@ El sistema organiza la información en las siguientes secciones:
 - Conexión a Internet (para API de Gemini)
 - API Key de Google Gemini (gratuita en AI Studio)
 
+### Nota de Seguridad
+
+**Importante**: Esta aplicación está diseñada para uso individual o en entornos de desarrollo. La API Key de Gemini se almacena en el navegador y se envía directamente desde el cliente. Para uso en producción, se recomienda:
+
+1. Implementar un backend/proxy que maneje las llamadas a la API de Gemini
+2. No exponer la API Key en el código del cliente
+3. Agregar autenticación y autorización apropiadas
+4. Implementar rate limiting y monitoreo de uso
+
+Para prototipos y uso personal, la configuración actual es adecuada, ya que Google Gemini permite el uso de API Keys en aplicaciones del lado del cliente con las restricciones apropiadas configuradas en Google Cloud Console.
+
 ### Archivos
 
 - `comparador-seguros.html` - Interfaz principal
