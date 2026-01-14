@@ -123,17 +123,43 @@ class InsuranceComparator {
         this.files.forEach((fileData, index) => {
             const fileItem = document.createElement('div');
             fileItem.className = 'file-item';
-            fileItem.innerHTML = `
-                <div class="file-info">
-                    <div class="file-icon">PDF</div>
-                    <div class="file-details">
-                        <div class="file-name">${fileData.name}</div>
-                        <div class="file-size">${fileData.size}</div>
-                    </div>
-                </div>
-                <span class="file-status ${fileData.status}">${this.getStatusText(fileData.status)}</span>
-                <button class="file-remove" onclick="comparator.removeFile(${index})">×</button>
-            `;
+            
+            const fileInfo = document.createElement('div');
+            fileInfo.className = 'file-info';
+            
+            const fileIcon = document.createElement('div');
+            fileIcon.className = 'file-icon';
+            fileIcon.textContent = 'PDF';
+            
+            const fileDetails = document.createElement('div');
+            fileDetails.className = 'file-details';
+            
+            const fileName = document.createElement('div');
+            fileName.className = 'file-name';
+            fileName.textContent = fileData.name;
+            
+            const fileSize = document.createElement('div');
+            fileSize.className = 'file-size';
+            fileSize.textContent = fileData.size;
+            
+            fileDetails.appendChild(fileName);
+            fileDetails.appendChild(fileSize);
+            
+            fileInfo.appendChild(fileIcon);
+            fileInfo.appendChild(fileDetails);
+            
+            const status = document.createElement('span');
+            status.className = `file-status ${fileData.status}`;
+            status.textContent = this.getStatusText(fileData.status);
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'file-remove';
+            removeBtn.textContent = '×';
+            removeBtn.onclick = () => this.removeFile(index);
+            
+            fileItem.appendChild(fileInfo);
+            fileItem.appendChild(status);
+            fileItem.appendChild(removeBtn);
             fileList.appendChild(fileItem);
         });
     }
@@ -250,6 +276,9 @@ IMPORTANTE:
 - Si encuentras coberturas adicionales no listadas, agrégalas en "otras_coberturas"`;
 
         try {
+            // Note: Google Gemini API requires the API key as a query parameter
+            // This is the official API design. For production use, consider implementing
+            // a backend proxy to avoid exposing the API key in the browser.
             const response = await fetch(
                 `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${this.apiKey}`,
                 {
@@ -274,8 +303,14 @@ IMPORTANTE:
             );
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(`API Error: ${errorData.error?.message || 'Unknown error'}`);
+                let errorMessage = `API Error: ${response.status}`;
+                try {
+                    const errorData = await response.json();
+                    errorMessage = `API Error: ${errorData.error?.message || response.statusText}`;
+                } catch (e) {
+                    errorMessage = `API Error: ${response.statusText}`;
+                }
+                throw new Error(errorMessage);
             }
 
             const data = await response.json();
@@ -331,10 +366,17 @@ IMPORTANTE:
         // Create header
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
-        headerRow.innerHTML = '<th>Concepto</th>';
+        
+        const conceptHeader = document.createElement('th');
+        conceptHeader.textContent = 'Concepto';
+        headerRow.appendChild(conceptHeader);
+        
         this.extractedData.forEach(data => {
-            headerRow.innerHTML += `<th>${data.company}</th>`;
+            const th = document.createElement('th');
+            th.textContent = data.company;
+            headerRow.appendChild(th);
         });
+        
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
