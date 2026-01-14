@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador de Seguros Empresariales</title>
+    <link rel="stylesheet" href="comparador.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comparador de Seguros Empresariales</h1>
+            <p class="subtitle">Análisis inteligente de cotizaciones con IA</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Sección de configuración de API -->
+            <section class="api-config" id="apiConfigSection">
+                <h2>Configuración</h2>
+                <div class="config-box">
+                    <label for="apiKey">API Key de Gemini:</label>
+                    <input type="password" id="apiKey" placeholder="Ingresa tu API Key de Google Gemini" />
+                    <button id="saveApiKey" class="btn btn-primary">Guardar API Key</button>
+                    <p class="help-text">
+                        <strong>¿Cómo obtener tu API Key?</strong><br>
+                        1. Visita <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a><br>
+                        2. Crea o selecciona un proyecto<br>
+                        3. Genera una nueva API Key<br>
+                        4. Copia y pega la clave aquí
+                    </p>
+                </div>
+            </section>
+
+            <!-- Sección de carga de archivos -->
+            <section class="upload-section" id="uploadSection" style="display: none;">
+                <h2>1. Cargar Cotizaciones</h2>
+                <div class="upload-box">
+                    <input type="file" id="pdfUpload" accept=".pdf" multiple />
+                    <label for="pdfUpload" class="upload-label">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <span>Arrastra archivos PDF aquí o haz clic para seleccionar</span>
+                        <span class="upload-hint">Soporta múltiples archivos PDF de cotizaciones</span>
+                    </label>
+                </div>
+
+                <div id="fileList" class="file-list"></div>
+
+                <button id="processFiles" class="btn btn-success" style="display: none;">
+                    Procesar Cotizaciones
+                </button>
+            </section>
+
+            <!-- Sección de procesamiento -->
+            <section class="processing-section" id="processingSection" style="display: none;">
+                <h2>2. Procesando...</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressBar" class="progress-fill"></div>
+                    </div>
+                    <p id="processingStatus">Inicializando...</p>
+                </div>
+            </section>
+
+            <!-- Sección de resultados -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <h2>3. Comparación de Seguros</h2>
+                <div class="results-actions">
+                    <button id="exportExcel" class="btn btn-success">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Exportar a Excel
+                    </button>
+                    <button id="newComparison" class="btn btn-secondary">Nueva Comparación</button>
+                </div>
+
+                <div id="comparisonTable" class="comparison-table-container"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" 
+            integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb" 
+            crossorigin="anonymous"></script>
+    <script src="comparador.js"></script>
+</body>
+</html>
